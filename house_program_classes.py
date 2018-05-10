@@ -1,3 +1,6 @@
+from utility_functions import let_user_update_object
+
+
 # room class takes in user defined room data and stores it on itself
 class Room:
 
@@ -83,20 +86,19 @@ class House_Builder():
         
     def creat_house(self):
 
-        house_attributes = ['address',
-        'price',
-        'rooms',
-        'color',
-        'roof_material',
-        'has_garage']
+        house_attributes = [
+            'address',
+            'price',
+            'color',
+            'roof_material',
+            'has_garage'
+        ]
 
-        for house_attribute in house_attributes:
-
-            user_input = input(f"enter {house_attribute}: ")
-            setattr(self.house, house_attribute, user_input)
-
-
+        let_user_update_object(the_object = self.house, attributes_list= house_attributes)
         print(self.house)
+
+    def create_rooms(self):
+        pass
 
 
 # this class serves as the main logic container of the app
