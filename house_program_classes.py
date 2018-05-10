@@ -130,30 +130,28 @@ class House_Builder():
 class Neighboorhood_Program:
 
     # this init method runs once, it's just a function that gets ran when the new instance 
-    # is spawned. It takes in the house data in the addresses argument
+    # is spawned.
     def __init__(self):
         
-        # # applies the addresses ( house_data ) to the instance of the class
-        # self.addresses = addresses
+        # runs the user prompt
+        self.give_user_options()
 
-        # # loops through each address or house in the self.addresses dictionary
-        # for address in self.addresses:
+    #presents the user with options in the console
+    def give_user_options(self):
 
-        #     # this variable becomes the house data value for each particular house key in the addresses dictionary
-        #     # so house_data is its own dictionary that contains all of the data for a house
-        #     house_data = self.addresses[address]
+        user_selection = int(input("1 create new house | 2 view all houses "))
 
-        #     # runs the add_a_new_house method and passes in the house data dictionary
-        #     self.add_a_new_house(house_data)
-        house_builder = House_Builder()
+        if user_selection == 1:
+
+            self.add_a_new_house()
+
 
     # creats a house
-    def add_a_new_house(self, house_data):
+    def add_a_new_house(self):
 
-        # creates an instance of the house class and passes in the house data
-        the_house = House(house_data)
+        #creates an instance of the House_Builder class thereby starting that part of the app
+        house_builder = House_Builder()
 
-        # right now i am printing each house that we create, we could then store each 
-        # house on self.houses or something
-        print(the_house)
+        #when the house_builder is complete, present the user with options again
+        self.give_user_options()
 
