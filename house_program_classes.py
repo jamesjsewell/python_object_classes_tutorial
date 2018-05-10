@@ -141,7 +141,7 @@ class Neighboorhood_Program:
     #presents the user with options in the console
     def give_user_options(self):
 
-        user_selection = int(input("1 create new house | 2 view all houses "))
+        user_selection = int(input("1 create new house | 2 view all houses | 3 remove houses | 4 exit "))
 
         if user_selection == 1:
 
@@ -150,6 +150,14 @@ class Neighboorhood_Program:
         if user_selection == 2:
 
             self.view_houses()
+
+        if user_selection == 3:
+
+            self.remove_houses()
+
+        if user_selection == 4:
+
+            self.exit()
 
 
     # creats a house
@@ -162,6 +170,7 @@ class Neighboorhood_Program:
         #when the house_builder is complete, present the user with options again
         self.give_user_options()
 
+    # shows all created houses
     def view_houses(self):
 
         print('\n')
@@ -171,4 +180,37 @@ class Neighboorhood_Program:
         print('\n')
 
         self.give_user_options()
+
+    # shows all created houses
+    def remove_houses(self):
+
+        done_removing = False
+
+        while done_removing == False:
+
+            house_to_remove = input("enter address of house to remove: ")
+
+            for a_house in self.houses:
+
+                if a_house.address == house_to_remove:
+
+                    del self.houses[self.houses.index(a_house)]
+
+                    print(f"removed house at {house_to_remove}")
+
+            keep_going = input("remove more houses? y/n ")
+
+            if keep_going == 'y':
+
+                print('\n')
+
+            else:
+
+                done_removing = True
+
+        self.give_user_options()
+
+    def exit(self):
+
+        print('goodbye')
 
