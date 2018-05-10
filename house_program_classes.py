@@ -45,7 +45,7 @@ class House():
         while i < len(self.rooms):
 
             the_room_obj = self.rooms[i]
-            room_square_feet = the_room_obj.square_feet
+            room_square_feet = int(the_room_obj.square_feet)
 
             total_square_feet = total_square_feet + room_square_feet
 
@@ -115,8 +115,14 @@ class House_Builder():
             else:
 
                 done_adding_rooms = True
-                self.house.rooms = rooms_array
-                print(self.house)
+                self.done_creating_house(rooms_array)
+
+    def done_creating_house(self, rooms_array):
+
+        self.house.rooms = rooms_array
+        self.house.calculate_house_size()
+        print(self.house)
+
 
 
 
