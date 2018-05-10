@@ -1,6 +1,5 @@
 from utility_functions import let_user_update_object
 
-
 # room class takes in user defined room data and stores it on itself
 class Room:
 
@@ -18,8 +17,7 @@ class Room:
     def __repr__(self):
         return (f"\n {self.room_name} ... square feet: {self.square_feet}, windows: {self.number_windows}, has fan? {self.has_fan}, outlets: {self.number_outlets}, floor: {self.floor_material}, lights: {self.number_lights} \n")
 
-# house class takes room data and creates those rooms using the room class
-# then stores the houses's room objects on itself in an array. Also takes in other house data
+# stores the houses's room objects on itself in an array. Also takes in other house data
 class House():
 
     def __init__(self):
@@ -64,6 +62,7 @@ class House_Builder():
     def __init__(self):
 
         self.house = House()
+        self.houses = []
         self.create_house() 
         self.create_rooms_of_house()     
         
@@ -121,10 +120,11 @@ class House_Builder():
 
         self.house.rooms = rooms_array
         self.house.calculate_house_size()
+        self.houses.append(self.house)
+        print('\n')
+        print(f'house at {self.house.address} created')
         print(self.house)
-
-
-
+        
 
 # this class serves as the main logic container of the app
 class Neighboorhood_Program:
@@ -132,6 +132,8 @@ class Neighboorhood_Program:
     # this init method runs once, it's just a function that gets ran when the new instance 
     # is spawned.
     def __init__(self):
+
+        self.houses = []
         
         # runs the user prompt
         self.give_user_options()
@@ -145,13 +147,28 @@ class Neighboorhood_Program:
 
             self.add_a_new_house()
 
+        if user_selection == 2:
+
+            self.view_houses()
+
 
     # creats a house
     def add_a_new_house(self):
 
         #creates an instance of the House_Builder class thereby starting that part of the app
         house_builder = House_Builder()
+        self.houses.append(house_builder.house)
 
         #when the house_builder is complete, present the user with options again
+        self.give_user_options()
+
+    def view_houses(self):
+
+        print('\n')
+        print('---------- houses ----------')
+        print(self.houses)
+        print('----------------------------')
+        print('\n')
+
         self.give_user_options()
 
