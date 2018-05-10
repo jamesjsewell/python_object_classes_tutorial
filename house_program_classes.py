@@ -4,15 +4,15 @@ from utility_functions import let_user_update_object
 # room class takes in user defined room data and stores it on itself
 class Room:
 
-    def __init__(self, room_data):
+    def __init__(self):
        
-        self.room_name = room_data['room_name']
-        self.square_feet = room_data['square_feet']
-        self.number_windows = room_data['number_windows']
-        self.has_fan = room_data['has_fan']
-        self.number_outlets = room_data['number_outlets']
-        self.floor_material = room_data['floor_material']
-        self.number_lights = room_data['number_lights']
+        self.room_name = None
+        self.square_feet = None
+        self.number_windows = None
+        self.has_fan = None
+        self.number_outlets = None
+        self.floor_material = None
+        self.number_lights = None
         
     # this method formats how the object or instance will appear when printed to the console only
     def __repr__(self):
@@ -33,24 +33,6 @@ class House():
         self.has_garage = None
         self.square_feet = None
         self.rooms_data = None
-      
-    # this class iterates through the room data supplied to the house class
-    # and spawns instances of rooms using the room class
-    # then stores the rooms on the house class via self
-    def create_rooms(self):
-
-        # the_room_name becomes each key of the self.rooms_data dictionary as it iterates
-        for the_room_name in self.rooms_data:
-
-            # the_room_data becomes the value stored under the "the_room_name" key
-            # in the self.rooms_data dictionary
-            the_room_data = self.rooms_data[the_room_name]
-
-            # this becomes an instance of the Room class, and passes in the data for that particular room
-            the_room_object = self.Room_class(the_room_data)
-
-            # appends the spawned room object to the self of the house instance
-            self.rooms.append(the_room_object)
 
     # iterates through all generated room objects and adds their square feet to total
     # the house's square feet
@@ -82,9 +64,10 @@ class House_Builder():
     def __init__(self):
 
         self.house = House()
-        self.creat_house()      
+        self.create_house() 
+        self.create_rooms_of_house()     
         
-    def creat_house(self):
+    def create_house(self):
 
         house_attributes = [
             'address',
@@ -94,11 +77,47 @@ class House_Builder():
             'has_garage'
         ]
 
-        let_user_update_object(the_object = self.house, attributes_list= house_attributes)
+        let_user_update_object(the_object = self.house, attributes_list = house_attributes)
         print(self.house)
 
-    def create_rooms(self):
-        pass
+    def create_rooms_of_house(self):
+        
+        print('now enter details about the rooms of the house')
+
+        done_adding_rooms = False
+
+        rooms_array = []
+
+        while done_adding_rooms != True:
+
+            room = Room()
+
+            room_attributes = [
+                "room_name",
+                "square_feet",
+                "number_windows",
+                "has_fan",
+                "number_outlets",
+                "floor_material",
+                "number_lights"
+            ]
+
+            let_user_update_object(the_object = room, attributes_list = room_attributes)
+
+            rooms_array.append(room)
+
+            keep_adding_rooms = input('add another room? y/n : ')
+
+            if keep_adding_rooms == 'y':
+
+                print('\n')
+
+            else:
+
+                done_adding_rooms = True
+                self.house.rooms = rooms_array
+                print(self.house)
+
 
 
 # this class serves as the main logic container of the app
@@ -106,7 +125,7 @@ class Neighboorhood_Program:
 
     # this init method runs once, it's just a function that gets ran when the new instance 
     # is spawned. It takes in the house data in the addresses argument
-    def __init__(self, addresses):
+    def __init__(self):
         
         # # applies the addresses ( house_data ) to the instance of the class
         # self.addresses = addresses
