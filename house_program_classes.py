@@ -57,6 +57,7 @@ class House():
 
         return (f"\n address: {self.address} \n price: {self.price} \n square feet: {self.square_feet} \n color: {self.color} \n roof: {self.roof_material} \n has garage? {self.has_garage} \n rooms: {self.rooms} \n")
 
+# creates an instance of a house and allows the user to set its attributes and create its rooms
 class House_Builder():
 
     def __init__(self):
@@ -76,9 +77,11 @@ class House_Builder():
             'has_garage'
         ]
 
+        # this is a function i wrote that is imported from another file. it takes an object and list of attributes
+        # to allow the user to set on the object
         let_user_update_object(the_object = self.house, attributes_list = house_attributes)
-        print(self.house)
 
+    # allows the user to define each room of the house, the rooms get stored on the house instance in an array
     def create_rooms_of_house(self):
         
         print('now enter details about the rooms of the house')
@@ -87,10 +90,13 @@ class House_Builder():
 
         rooms_array = []
 
+        # will allow the user to continue adding rooms until done_adding_rooms becomes false
         while done_adding_rooms != True:
-
+            
+            # spawns a room instance
             room = Room()
 
+            # list of attributes that the user will be asked to define
             room_attributes = [
                 "room_name",
                 "square_feet",
@@ -101,26 +107,35 @@ class House_Builder():
                 "number_lights"
             ]
 
+            # i wrote this function and it lives in another file. it takes in a list 
+            # of attributes that the user will be allowed to set on the room object
+            # and then prompts the user to define them
             let_user_update_object(the_object = room, attributes_list = room_attributes)
 
+            # appends the newly created room to the rooms array
             rooms_array.append(room)
 
+            # asks the user if they want to keep adding rooms
             keep_adding_rooms = input('add another room? y/n : ')
 
+            # the else block will escape the while loop if n is pressed by the user
             if keep_adding_rooms == 'y':
 
                 print('\n')
 
             else:
-
+                
+                # escapes while loop runs the done_creating_house method
                 done_adding_rooms = True
                 self.done_creating_house(rooms_array)
 
+    # takes rooms array of room objects and sets it on the house instance
     def done_creating_house(self, rooms_array):
 
+        # sets the rooms array on the house instance
         self.house.rooms = rooms_array
         self.house.calculate_house_size()
-        self.houses.append(self.house)
+    
         print('\n')
         print(f'house at {self.house.address} created')
         print(self.house)
@@ -181,25 +196,33 @@ class Neighboorhood_Program:
 
         self.give_user_options()
 
-    # shows all created houses
+    # deletes houses
     def remove_houses(self):
 
+        # when this becomes false, the user will be taken back to the main menu
         done_removing = False
 
+        # will continue to allow the user to delete houses as long as done_removing remains false
         while done_removing == False:
 
+            # becomes the address that the user enters
             house_to_remove = input("enter address of house to remove: ")
 
+            # loops through houses and looks for one that matches the address the user typed in
             for a_house in self.houses:
 
+                # checks if the adress of the house is equal to the address the user entered
                 if a_house.address == house_to_remove:
 
+                    # removes house from the houses array
                     del self.houses[self.houses.index(a_house)]
 
                     print(f"removed house at {house_to_remove}")
 
+            # asks the user if they want to continue removing houses
             keep_going = input("remove more houses? y/n ")
 
+            # the else block escapes the while loop
             if keep_going == 'y':
 
                 print('\n')
@@ -208,6 +231,7 @@ class Neighboorhood_Program:
 
                 done_removing = True
 
+        # brings the user back to the main menu
         self.give_user_options()
 
     def exit(self):
